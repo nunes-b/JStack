@@ -16,10 +16,36 @@ module.exports =
         res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify(sortedUsers));
         
+    }, listUsers: (req, res) => {  
+        const { id } = req.params;
+        const user = mocks.users.find(user => user.id === Number(id));
+
+        if (!user) {
+            res.writeHead(404, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ message: "User not found" }));
+            return;
+        }
+        
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify( user ));
     },
     getProducts: (req, res) => {
         res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify(mocks.products));
+    }
+,
+    getProductsById: (req, res) => {
+        const { id } = req.params;
+        const product = mocks.products.find(product => product.id === Number(id));
+
+        if (!product) {
+            res.writeHead(404, {"Content-Type": "application/json"});
+            res.end(JSON.stringify({ message: "Product not found"}));
+            return;
+        }
+
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.end(JSON.stringify(product));
     }
 
 }
