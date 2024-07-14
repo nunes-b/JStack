@@ -3,6 +3,18 @@ const mocks = require("../mocks/lists.js");
 
 module.exports = 
 {
+    createUser: (request, response) =>{
+    const {body} = request
+    lastUserId = mocks.users.length - 1;
+    const newUser = {
+        id: lastUserId + 1,
+        name: body.name,
+    }
+    mocks.users.push(newUser)
+    response.send(201, {user: newUser})
+
+    },
+
     getUsers: (req, res) => {
         const {order} = req.query
         const sortedUsers = mocks.users.sort((a, b) => {
@@ -21,31 +33,42 @@ module.exports =
         const user = mocks.users.find(user => user.id === Number(id));
 
         if (!user) {
-            res.writeHead(404, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: "User not found" }));
-            return;
+            return res.send(400, { message: "User not found"});
         }
         
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify( user ));
+        res.send(200, user);
     },
-    getProducts: (req, res) => {
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.end(JSON.stringify(mocks.products));
-    }
-,
-    getProductsById: (req, res) => {
-        const { id } = req.params;
-        const product = mocks.products.find(product => product.id === Number(id));
+    updateUser: (request, response)=>{
 
-        if (!product) {
-            res.writeHead(404, {"Content-Type": "application/json"});
-            res.end(JSON.stringify({ message: "Product not found"}));
-            return;
+        const {id} = request.params;
+        const {name} = request.body
+
+        const users = mocks.users.find(user => user.id ===Number(id));
+        
+        if(!users){
+            return response.send(400, {error: "User not found"})
         }
 
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.end(JSON.stringify(product));
+        updatedUser = {
+            "id":users.id,
+            "name":users.name = name
+        };
+        
+        response.send(200, updatedUser)
+        },
+    deleteUser:(request, response) =>{
+        let {id} = request.params;
+
+        id = Number(id);
+        const filteredUsers = mocks.users.filter((user) => user.id !== id);
+    
+        if (filteredUsers.length === mocks.users.length) {
+            return response.send(400, { error: "User not found" });
+        }
+    
+        mocks.users = filteredUsers;
+    
+        response.send(200,{ deleted: true });
     }
 
 }

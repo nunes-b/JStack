@@ -1,7 +1,9 @@
 const http = require("http");
 const routes = require("./routes");
 const { URL } = require("url");
+const bodyParser =require("./helpers/bodyParser/bodyParser")
 const port = 3000;
+
 
 const server = http.createServer((request, response) => {
     console.log(`Request method: ${request.method}`);
@@ -22,7 +24,17 @@ const server = http.createServer((request, response) => {
     if (route) {
         request.query = Object.fromEntries(parsedUrl.searchParams);
         request.params = { id };
-        route.handler(request, response);
+
+        response.send = (statusCode, body) => {
+            response.writeHead(statusCode, {"Content-Type": "application/json"});
+            response.end(JSON.stringify(body));
+        }
+        if (["POST", "PUT"].includes(request.method)){
+            bodyParser(request,() => route.handler(request, response));
+        } else{
+            route.handler(request, response);
+
+        }
     } else {
         response.writeHead(404, {"Content-Type": "text/plain"});
         response.end("Not found");

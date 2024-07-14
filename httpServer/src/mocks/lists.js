@@ -1,7 +1,8 @@
 
 const users =[
     {id: 1, name: "John"},
-    {id: 2, name: "Doe"}
+    {id: 2, name: "Doe"},
+    {id: 3, name: "Doe"}
 ]
 const products = [
     {id: 1, name: "Magic Mouse 2"},
@@ -12,3 +13,4 @@ const products = [
 ]
 
 module.exports = {users, products}
+
