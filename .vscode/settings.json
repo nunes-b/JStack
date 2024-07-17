@@ -2,14 +2,14 @@
     // Workbench
     "workbench.editor.labelFormat": "short",
     "workbench.startupEditor": "newUntitledFile",
-    
+
     // Editor settings
     "editor.wordWrap": "on",
     "editor.fontSize": 12,
     "editor.lineHeight": 20,
     "terminal.integrated.fontSize": 12,
     "editor.tabSize": 2,
-    "editor.fontFamily":"Menlo, Monaco, 'Courier New', monospace", 
+    "editor.fontFamily":"Menlo, Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
     "editor.renderLineHighlight": "gutter",
     "editor.rulers": [80, 120],
@@ -17,9 +17,9 @@
     "editor.semanticHighlighting.enabled": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.codeActionsOnSave": {
-      "source.fixAll": true
+      "source.fixAll": "explicit"
     },
-      
+
     // VSCode stuff
     "breadcrumbs.enabled": true,
     "explorer.compactFolders": false,
@@ -27,15 +27,15 @@
     "explorer.confirmDelete": false,
     "javascript.updateImportsOnFileMove.enabled": "never",
     "typescript.updateImportsOnFileMove.enabled": "never",
-    
+
     // Emmet
     "emmet.syntaxProfiles": { "javascript": "jsx" },
     "emmet.includeLanguages": { "javascript": "javascriptreact" },
-    
+
     // Extensions
     "extensions.ignoreRecommendations": true,
     "diffEditor.ignoreTrimWhitespace": false,
-    
+
     "gitlens.defaultDateFormat": null,
     "gitlens.hovers.currentLine.over": "line",
     "liveServer.settings.donotShowInfoMsg": true,
