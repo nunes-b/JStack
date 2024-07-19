@@ -17,12 +17,32 @@ async show(request, response){
 
   response.json(contact)
 }
-store(){
-  //Cria novo registro
+async store(request, response){
+  const {name, email, phone} = request.body
+  const contactExists = await ContactsRepository.findByEmail(email)
+  if (contactExists){
+    return response.status(400).json({error: `email has register`})
+
+  }
+  const contact = await ContactsRepository.create({name, email, phone}
+  )
+  return response.json(contact)
 }
-update(){
-  //edita um registro
+async update(request, response){
+  const {id} = request.params
+  const {name, email, phone} = request.body
+  const contactExists = await ContactsRepository.findById(id)
+  if (!contactExists){
+    return response.status(404).json({error: "Entity not found"})
+  }
+
+  if (!name){
+    return response.status(400).json({error: "name not found, is required"})
+  }
+  const contactUpdated = await ContactsRepository.update(id, {name, email, phone})
+  return response.json(contactUpdated)
 }
+
 async delete(request, response){
   const {id} = request.params;
   const contact = await ContactsRepository.findById(id)
