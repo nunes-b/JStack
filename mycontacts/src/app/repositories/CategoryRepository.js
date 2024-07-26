@@ -10,7 +10,7 @@ class CategoryRepository {
     return row
   }
   async findAll() {
-    const rows = await db.query("SELECT * FROM categories JOIN contacts ON contacts.category_id = categories.id SELECT * FROM categories")
+    const rows = await db.query("SELECT * FROM categories")
     return rows
   }
   async findById(id) {
