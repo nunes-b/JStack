@@ -1,8 +1,8 @@
 const db = require('../../database/queries');
 
 class ContactsRepository {
-  async findAll() {
-   const rows = await db.query("SELECT * FROM contacts")
+  async findAll(orderBy = "name") {
+   const rows = await db.query(`SELECT * FROM contacts order by ${orderBy}`)
    return rows
   }
 
@@ -29,10 +29,10 @@ class ContactsRepository {
     return rows[0];
   }
 
-  async update(id, { name, email, phone }) {
+  async update(id, { name, email, phone , category_id}) {
     const rows = await db.query(
-      "UPDATE contacts SET name = $1, email = $2, phone = $3 WHERE id = $4 RETURNING *",
-      [name, email, phone, id]
+      "UPDATE contacts SET name = $1, email = $2, phone = $3, category_id = $4 WHERE id = $5  RETURNING *",
+      [name, email, phone, category_id, id]
     )
     return rows
   }
